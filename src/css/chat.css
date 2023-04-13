@@ -1,0 +1,42 @@
+/* ChatUI.css */
+  .chat-container {
+    border: 1px solid #f1f1f162;
+  }
+
+  .chat-content {
+    background-color: white;
+    padding: 16px;
+    overflow-y: auto;
+    height: calc(70vh - 54px); /* 입력창 높이만큼 제외한 높이 */
+  }
+  
+  .message-bubble {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 12px;
+    word-break: break-word;
+  }
+  
+  .right {
+    background-color: #108ee9;
+    color: white;
+  }
+  
+  .left {
+    background-color: #f1f1f1;
+    color: black;
+  }
+
+  .chat-input-container {
+    display: flex;
+    padding: 8px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+  }
+
+  .send-button {
+    height: 54px;
+    width: 100%;
+  }

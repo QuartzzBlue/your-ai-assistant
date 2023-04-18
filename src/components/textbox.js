@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Input, Button, Spin } from 'antd';
+import axios from 'axios';
+import moment from 'moment';
 import { useRecoilState } from 'recoil';
 import '../css/textbox.css';
-import savedState from '../atoms/savedState'
+import savedState from '../atoms/savedState' 
+import sessionKeyState from '../atoms/sessionKeyState' 
 const { TextArea } = Input;
 
 export default function Textbox() {
@@ -10,18 +13,44 @@ export default function Textbox() {
   const [loading, setLoading] = useState(false);  
   const [sourceText, setSourceText] = useState("");  
   const [saved, setSaved] = useRecoilState(savedState);
+  const [sessionKey, setSessionKey] = useRecoilState(sessionKeyState);
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-  const saveTextSource = () => {
+  const saveTextSource = async ()=> {
     if(saved) {
       setSourceText("");
       setSaved(false);
+      setSessionKey("");
     } else {
       showLoadingUI();
-      setTimeout(() => { // 서버 API 연동
+      try {
+        await saveTextEmbedddings();
         setSaved(true);
         hideLoadingUI();
-      }, 3000);
+      } catch (error) {
+        // [TO-DO] API 에러 처리
+      }
     }
+  }
+  
+  const saveTextEmbedddings = () => {
+    return new Promise((resolve, reject) => {
+      const now = moment().format('YYYYMMDDHHmmss');
+      setSessionKey(now);
+      const data = {
+        sessionKey: now,
+        source: sourceText
+      };
+      axios.post(baseUrl + '/embedding', data)
+      .then(response => {
+        console.log(response.data);
+        resolve(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+        reject();
+      });
+    })
   }
 
   const showLoadingUI = () => {

@@ -8,12 +8,11 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 
-
 export default function Chat() {
   const initMessages = [
-    { id: 1, content: "안녕하세요, 무엇을 도와드릴까요?", position: "left" },
-    { id: 2, content: "안녕하세요! 잘 지내셨나요?", position: "right" },
-    { id: 3, content: "null", position: "left" },
+    { content: "안녕하세요, 무엇을 도와드릴까요?", position: "left" },
+    { content: "안녕하세요! 잘 지내셨나요?", position: "right" },
+    // { content: "null", position: "left" },
     // ... 기타 메시지
   ];
 
@@ -41,7 +40,13 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("");
 
   const handleSendMessage = () => {
-    // 메시지 전송 로직 구현
+    const prevMessages = messages;
+    // [TO-DO] 메시지 전송 로직 구현
+    setMessages([...prevMessages, {content: "null", position: "left" }]);
+    setTimeout(() => {
+      setMessages([...prevMessages, {content: "네 잘 지냈어요!", position: "left" }]);
+    }, 3000);
+    scrollToBottom();
   };
 
   return (
@@ -89,7 +94,7 @@ export default function Chat() {
             />
           </Col>
           <Col flex={1}>
-            <Button onClick={handleSendMessage} className="blue-6 send-button" disabled={!saved}>SEND</Button>
+            <Button onClick={handleSendMessage} className="blue-6 send-button" disabled={!saved}>SEND</Button> 
           </Col>
         </Row>
     </>

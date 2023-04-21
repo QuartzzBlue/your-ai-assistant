@@ -31,8 +31,8 @@ function App() {
     </Header>
       <Alert
         style={{ margin : '30px 50px 0 50px'}}
-        message="Informational Notes"
-        description="Additional description and information about copywriting."
+        message="서비스 소개"
+        description="Your Customizing AI Chatbot은 당신의 데이터에 기반한 대화형 AI 챗봇을 만들어 주는 서비스입니다."
         type="info"
         showIcon closable
       />

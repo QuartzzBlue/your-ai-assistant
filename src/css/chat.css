@@ -5,6 +5,7 @@
     height: inherit;
     box-sizing: border-box;
     border-radius: 6px;
+    position: relative;
   }
 
   .chat-content {
